@@ -1,12 +1,13 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
+from dto.constants import GuessStatusEnum
+
 
 @dataclass
 class GuessResponse:
-    guess_result: str
-    letter1: str
-    letter2: str
-    letter3: str
-    letter4: str
-    letter5: str
-    incorrectly_guessed_letters: list
-
+    guess_result: str = GuessStatusEnum.incorrect
+    letter1: str = GuessStatusEnum.incorrect
+    letter2: str = GuessStatusEnum.incorrect
+    letter3: str = GuessStatusEnum.incorrect
+    letter4: str = GuessStatusEnum.incorrect
+    letter5: str = GuessStatusEnum.incorrect
+    incorrectly_guessed_letters: list = field(default_factory=list)

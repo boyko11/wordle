@@ -1,6 +1,10 @@
 from enum import Enum
 
 
-class CorrectIncorrectEnum(Enum):
+class GuessStatusEnum(Enum):
     correct = "correct",
-    incorrect = "incorrect"
+    incorrect = "incorrect",
+    wrong_position = "wrong_position"
+
+
+letter = "letter"

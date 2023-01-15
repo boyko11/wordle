@@ -45,7 +45,7 @@ The return to this post request would be the result of the guess, e.g.
 ## Installation
 
 ```bash
-pip install -r requirements.txt
+pip install -r docker/requirements.txt
 ```
 
 ## Usage
@@ -60,5 +60,29 @@ Then run on whatever port you like:
 docker run -p 8000:4637 -d wordle
 ```
 
+Then HTTP post wuth an empty body to
+```http request
+http://localhost:8000/new_game
+```
+Example response:
+```json
+{
+  "game_id": 123456
+}
+```
+
+Then get the game_id from the response and HTTP Post a "guess"
+```http request
+http://localhost:8000/new_game
+```
+Example body:
+```json
+{
+    "game_id": 123456, 
+    "word": "CROWN"
+}
+```
+
+
 ## License
-Feel free to use anyway you like, as long as you don't kill any puppies. Cheers!
+Feel free to use anyway you like, as long as you mean no harm. Cheers!
