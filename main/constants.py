@@ -8,3 +8,5 @@ class GuessStatusEnum(Enum):
 
 
 letter = "letter"
+
+NUM_ALLOWED_GUESSES = 6

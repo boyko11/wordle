@@ -1,5 +1,5 @@
-from dto import constants
-from dto.constants import GuessStatusEnum
+from main import constants
+from main.constants import GuessStatusEnum
 from dto.GuessResponse import GuessResponse
 
 

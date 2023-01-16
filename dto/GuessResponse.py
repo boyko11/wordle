@@ -1,5 +1,5 @@
 from dataclasses import dataclass, field
-from dto.constants import GuessStatusEnum
+from main.constants import GuessStatusEnum
 
 
 @dataclass

@@ -1,7 +1,7 @@
 import unittest
 from service.WordleService import WordleService
 from dto.GuessResponse import GuessResponse
-from dto.constants import GuessStatusEnum
+from main.constants import GuessStatusEnum
 
 
 class WordleServiceTest(unittest.TestCase):
