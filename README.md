@@ -14,7 +14,7 @@ pip install -r requirements.txt
 ```
 ### 1. Docker
 
-Build as docker flask container from the project root dir(not from the docker subdir)
+Build as a docker flask container from the project root dir(not from the docker subdir)
 ```bash
 docker build . -t wordle:latest -f docker/Dockerfile
 ```
@@ -64,7 +64,7 @@ and sets it as an env variable used for the following "guess" requests.
 
 ## Remote Test instructions
 The docker container is also deployed on  
-http://boyko.io/wordle
+http://boyko.io/wordle  
 You could run the local test scripts from the project root dir, passing just the remote {target_url}:  
 ```bash
 python -m test.integration.wordle_simulation_client boyko.io/wordle
@@ -79,7 +79,7 @@ You could use the provided Postman project - just change the env variable "targe
 
 
 
-## Requirements
+## Requirements from the assignment doc
 To start a game session, HTTP Post with an empty body to  
 **/new_game**  
 The return will be the game_id to be referenced during the game session, e.g.
@@ -111,7 +111,7 @@ The return to this post request would be the result of the guess, e.g.
 }
 ```
 
-## Design blurb
+## Quick Design Blurb
 
 1. DictionaryService
    1. Load all five-letter english words - just once at program start-up
