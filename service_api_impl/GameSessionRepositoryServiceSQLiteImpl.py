@@ -1,13 +1,13 @@
 import sqlite3
-from dto.GameSession import GameSession
-from dto.GameSessionGuess import GameSessionGuess
+from dto.db.GameSession import GameSession
+from dto.db.GameSessionGuess import GameSessionGuess
 from main import config
 
 
 class GameSessionRepositoryServiceSQLiteImpl:
 
     def __init__(self):
-        self.db_connection = sqlite3.connect(config.db_name)
+        self.db_connection = sqlite3.connect(config.db_name, check_same_thread=False)
         self.db_connection.row_factory = sqlite3.Row
         self.create_tables_if_not_exist()
         self.create_game_session_sql_template = """

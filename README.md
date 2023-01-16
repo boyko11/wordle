@@ -1,4 +1,50 @@
 # REST API Wordle
+## Quick Blurb
+This wordle clone API is not as robust as it could be.  
+Specifically, it could use http request validation,  
+nicer handling of guess attempts after the max allowed guesses,  
+more robust wordle rules, dictionary that does not contain impossible words.  
+If the intent was to demonstrate more robustness on these points, let me know. Cheers!
+
+## Test instructions
+### 1. Local No Docker
+Clone the project locally and cd to the project dir.
+Get all the libraries:  
+```bash
+pip install -r requirements.txt
+```
+Start Flask locally
+```bash
+python -m main.web
+```
+The flask terminal window will print the correct target word when a new game starts.  
+
+cd to the project root in different terminal window or a tab.  
+Run a simulation - it starts a game and makes 7 incorrect guesses.  
+It asserts that the 6th and any following guess attempts, return "game_over"
+```bash
+python -m test.integration.wordle_simulation_client
+```
+This will go after localhost:4637. If you want different host and/or port
+
+```bash
+python -m test.integration.wordle_simulation_client {target_host} {target_port}
+```
+
+Interactive command-line wordle client:  
+From the project root dir  
+```bash
+python -m test.integration.wordle_interactive_client
+```
+Again localhost:4637 is the default, if different desired:
+```bash
+python -m test.integration.wordle_interactive_client {target_host} {target_port}
+```
+
+
+
+
+
 ## Requirements
 To start a game session, HTTP Post with an empty body to  
 **/new_game**  

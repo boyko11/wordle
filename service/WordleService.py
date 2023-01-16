@@ -1,6 +1,6 @@
 from main import constants
 from main.constants import GuessStatusEnum
-from dto.GuessResponse import GuessResponse
+from dto.web.GuessResponse import GuessResponse
 
 
 class WordleService:

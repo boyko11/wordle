@@ -1,6 +1,6 @@
 import unittest
 from service.WordleService import WordleService
-from dto.GuessResponse import GuessResponse
+from dto.web.GuessResponse import GuessResponse
 from main.constants import GuessStatusEnum
 
 
