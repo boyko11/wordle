@@ -1,15 +1,15 @@
 import unittest
-from service_api_impl.GameSessionServiceSQLiteImpl import GameSessionServiceSQLiteImpl
+from service_api_impl.GameSessionRepositoryServiceSQLiteImpl import GameSessionRepositoryServiceSQLiteImpl
 
 
 class GameSessionServiceSQLiteImplTest(unittest.TestCase):
 
     def setUp(self):
-        self.gameSessionServiceSQLiteImpl = GameSessionServiceSQLiteImpl()
+        self.gameSessionServiceSQLiteImpl = GameSessionRepositoryServiceSQLiteImpl()
 
     def test_start_game_session(self):
 
-        game_session_id = self.gameSessionServiceSQLiteImpl.start_game_session("world")
+        game_session_id = self.gameSessionServiceSQLiteImpl.create_game_session("world")
 
         game_session = self.gameSessionServiceSQLiteImpl.get_game_session(game_session_id)
 
@@ -41,21 +41,13 @@ class GameSessionServiceSQLiteImplTest(unittest.TestCase):
 
     def build_test_game_session_with_guesses(self):
 
-        game_session_id = self.gameSessionServiceSQLiteImpl.start_game_session("hello")
+        game_session_id = self.gameSessionServiceSQLiteImpl.create_game_session("hello")
         game_session = self.gameSessionServiceSQLiteImpl.get_game_session(game_session_id)
 
-        self.gameSessionServiceSQLiteImpl.record_guess("angel", 1, game_session.id)
-        self.gameSessionServiceSQLiteImpl.record_guess("juicy", 2, game_session.id)
+        self.gameSessionServiceSQLiteImpl.record_guess("angel", game_session.id)
+        self.gameSessionServiceSQLiteImpl.record_guess("juicy", game_session.id)
 
         return game_session_id
-
-
-
-
-
-
-
-
 
 
 if __name__ == '__main__':

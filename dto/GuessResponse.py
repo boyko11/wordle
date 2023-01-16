@@ -11,3 +11,4 @@ class GuessResponse:
     letter4: str = GuessStatusEnum.incorrect
     letter5: str = GuessStatusEnum.incorrect
     incorrectly_guessed_letters: list = field(default_factory=list)
+    game_over: bool = False

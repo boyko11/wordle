@@ -39,7 +39,7 @@ The return to this post request would be the result of the guess, e.g.
 2. WordleGuessService - given a guess word and a target word return the guess response as described in the requirements
 3. GameSessionService
    1. Start a game session - generate a unique GameSessionId
-   2. Maintain Session State information - ie, How for along the game session for a certain game_id is - how many tries are left in the session for a specific game_id.  
+   2. Maintain Session State information - Record guesses. Have them available in case of backend restart. Indicate game over
 4. Rest Stuff - Flask handler for the HTTP Posts
 
 ## Installation

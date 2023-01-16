@@ -1,13 +1,13 @@
 import sqlite3
 from dto.GameSession import GameSession
 from dto.GameSessionGuess import GameSessionGuess
-from main import constants
+from main import config
 
 
-class GameSessionServiceSQLiteImpl:
+class GameSessionRepositoryServiceSQLiteImpl:
 
     def __init__(self):
-        self.db_connection = sqlite3.connect("wordle.db")
+        self.db_connection = sqlite3.connect(config.db_name)
         self.db_connection.row_factory = sqlite3.Row
         self.create_tables_if_not_exist()
         self.create_game_session_sql_template = """
@@ -29,7 +29,7 @@ class GameSessionServiceSQLiteImpl:
             ORDER BY guess_number asc;
         """
 
-    def start_game_session(self, target_word):
+    def create_game_session(self, target_word):
 
         cur = self.db_connection.cursor()
         cur.execute(self.create_game_session_sql_template, {"target_word": target_word})
@@ -48,7 +48,9 @@ class GameSessionServiceSQLiteImpl:
         cur.close()
         return game_session
 
-    def record_guess(self, guess_word, guess_number, game_session_id):
+    def record_guess(self, guess_word, game_session_id):
+
+        guess_number = self.count_number_guesses_for_game_session(game_session_id) + 1
 
         cur = self.db_connection.cursor()
         cur.execute(self.create_game_session_guess_sql_template,
@@ -66,7 +68,7 @@ class GameSessionServiceSQLiteImpl:
         return number_guesses_made
 
     def number_remaining_guesses(self, game_session_id):
-        return constants.NUM_ALLOWED_GUESSES - self.count_number_guesses_for_game_session(game_session_id)
+        return config.NUM_ALLOWED_GUESSES - self.count_number_guesses_for_game_session(game_session_id)
 
     def get_guesses_for_game_session(self, game_session_id):
 
