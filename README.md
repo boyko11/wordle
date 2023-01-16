@@ -6,18 +6,33 @@ nicer handling of guess attempts after the max allowed guesses,
 more robust wordle rules, dictionary that does not contain impossible words.  
 If the intent was to demonstrate more robustness on these points, let me know. Cheers!
 
-## Test instructions
-### 1. Local No Docker
+## Local Test instructions
 Clone the project locally and cd to the project dir.
 Get all the libraries:  
 ```bash
 pip install -r requirements.txt
 ```
+### 1. Docker
+
+Build as docker flask container from the project root dir(not from the docker subdir)
+```bash
+docker build . -t wordle:latest -f docker/Dockerfile
+```
+
+Flask runs on port 4637, but you can run on whatever port you like:
+```bash
+docker run -p 4637:4637 -d wordle
+```
+
+### 2. NO docker
+
 Start Flask locally
 ```bash
 python -m main.web
 ```
 The flask terminal window will print the correct target word when a new game starts.  
+
+### Testing and simulation
 
 cd to the project root in different terminal window or a tab.  
 Run a simulation - it starts a game and makes 7 incorrect guesses.  
@@ -25,10 +40,10 @@ It asserts that the 6th and any following guess attempts, return "game_over"
 ```bash
 python -m test.integration.wordle_simulation_client
 ```
-This will go after localhost:4637. If you want different host and/or port
+This will go after localhost:4637. If you'd like a different target_url
 
 ```bash
-python -m test.integration.wordle_simulation_client {target_host} {target_port}
+python -m test.integration.wordle_simulation_client {target_url}
 ```
 
 Interactive command-line wordle client:  
@@ -38,10 +53,29 @@ python -m test.integration.wordle_interactive_client
 ```
 Again localhost:4637 is the default, if different desired:
 ```bash
-python -m test.integration.wordle_interactive_client {target_host} {target_port}
+python -m test.integration.wordle_interactive_client {target_url}
 ```
 
+#### Postman
+See postman dir under the project root.  
+You could import the postman environment and collection json files into your Postman.  
+It has a new_game post to localhost:4637, then grabs the game_id from the response  
+and sets it as an env variable used for the following "guess" requests.
 
+## Remote Test instructions
+The docker container is also deployed on  
+http://boyko.io/wordle
+You could run the local test scripts from the project root dir, passing just the remote {target_url}:  
+```bash
+python -m test.integration.wordle_simulation_client boyko.io/wordle
+```
+```bash
+python -m test.integration.wordle_interactice_client boyko.io/wordle
+```
+
+### Remote Postman
+If you'd like to go after the remote boyko wordle with Postman, 
+You could use the provided Postman project - just change the env variable "target_url" to be boyko.io/wordle 
 
 
 
@@ -87,48 +121,6 @@ The return to this post request would be the result of the guess, e.g.
    1. Start a game session - generate a unique GameSessionId
    2. Maintain Session State information - Record guesses. Have them available in case of backend restart. Indicate game over
 4. Rest Stuff - Flask handler for the HTTP Posts
-
-## Installation
-
-```bash
-pip install -r docker/requirements.txt
-```
-
-## Usage
-
-Build as docker flask container from the project root dir(not from the docker subdir)
-```bash
-docker build . -t wordle:latest -f docker/Dockerfile
-```
-
-Then run on whatever port you like:
-```bash
-docker run -p 8000:4637 -d wordle
-```
-
-Then HTTP post wuth an empty body to
-```http request
-http://localhost:8000/new_game
-```
-Example response:
-```json
-{
-  "game_id": 123456
-}
-```
-
-Then get the game_id from the response and HTTP Post a "guess"
-```http request
-http://localhost:8000/new_game
-```
-Example body:
-```json
-{
-    "game_id": 123456, 
-    "word": "CROWN"
-}
-```
-
 
 ## License
 Feel free to use anyway you like, as long as you mean no harm. Cheers!

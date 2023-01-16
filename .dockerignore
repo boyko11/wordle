@@ -6,3 +6,5 @@ venv
 README.md
 **/__pycache__
 wordle.db
+postman
+wordle.tar
